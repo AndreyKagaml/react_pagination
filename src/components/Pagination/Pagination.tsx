@@ -14,7 +14,7 @@ export const Pagination = ({
   onPageChange,
 }: PaginationProp) => {
   const countPages: number = Math.ceil(total / perPage);
-  const pageItems = [];
+  const pageItems: number[] = [];
 
   for (let i = 1; i <= countPages; i++) {
     pageItems.push(i);
@@ -25,6 +25,15 @@ export const Pagination = ({
       className="pagination"
       onClick={event => {
         const link = (event.target as HTMLElement).closest('a') as HTMLElement;
+
+        if (!link) {
+          return;
+        }
+
+        //ask on review
+        if (link.getAttribute('aria-disabled') === 'true') {
+          return;
+        }
 
         if (link.getAttribute('aria-disabled') === 'false') {
           onPageChange(

@@ -1,9 +1,8 @@
 interface Prop {
-  changeValue: (value: number) => void;
-  resetPage: (value: number) => void;
+  resetPage: (page: number, perP: number) => void;
 }
 
-export const SelectPerPage = ({ changeValue, resetPage }: Prop) => {
+export const SelectPerPage = ({ resetPage }: Prop) => {
   return (
     <div className="form-group row">
       <div className="col-3 col-sm-2 col-xl-1">
@@ -12,8 +11,7 @@ export const SelectPerPage = ({ changeValue, resetPage }: Prop) => {
           id="perPageSelector"
           className="form-control"
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-            changeValue(+event.target.value);
-            resetPage(1);
+            resetPage(1, +event.target.value);
           }}
           defaultValue="5"
         >
