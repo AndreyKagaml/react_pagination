@@ -3,14 +3,14 @@ import cn from 'classnames';
 type PaginationProp = {
   total: number;
   perPage: number;
-  currentPage: number;
+  currentPage?: number;
   onPageChange: (page: number) => void;
 };
 
 export const Pagination = ({
   total,
   perPage,
-  currentPage,
+  currentPage = 1,
   onPageChange,
 }: PaginationProp) => {
   const countPages: number = Math.ceil(total / perPage);
@@ -24,15 +24,16 @@ export const Pagination = ({
     <ul
       className="pagination"
       onClick={event => {
-        const link = event.target as HTMLElement;
+        const link = (event.target as HTMLElement).closest('a') as HTMLElement;
 
         if (link.getAttribute('aria-disabled') === 'false') {
           onPageChange(
             link.dataset.cy === 'prevLink' ? currentPage - 1 : currentPage + 1,
           );
-        }
-
-        if (!Number.isNaN(+link.innerText)) {
+        } else if (
+          !Number.isNaN(+link.innerText) &&
+          +link.innerText !== currentPage
+        ) {
           onPageChange(+link.innerText);
         }
       }}

@@ -11,15 +11,14 @@ export const SelectPerPage = ({ changeValue, resetPage }: Prop) => {
           data-cy="perPageSelector"
           id="perPageSelector"
           className="form-control"
-          onChange={event => {
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             changeValue(+event.target.value);
             resetPage(1);
           }}
+          defaultValue="5"
         >
           <option value="3">3</option>
-          <option value="5" selected>
-            5
-          </option>
+          <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
         </select>
